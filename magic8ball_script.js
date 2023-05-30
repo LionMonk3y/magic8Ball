@@ -35,3 +35,10 @@ function myFunction() {
     document.getElementById("clear").value = "";
   }
 }
+
+const turnButton = document.getElementById("turnButton");
+const ball = document.querySelector(".ball");
+
+turnButton.addEventListener("click", function () {
+  ball.classList.toggle("turn");
+});
