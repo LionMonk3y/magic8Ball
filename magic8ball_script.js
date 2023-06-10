@@ -21,44 +21,57 @@ const points = [
   "My reply is no",
 ];
 
-// function myFunction() {
-//   points.sort(function (a, b) {
-//     return 0.5 - Math.random();
-//   });
-//   document.getElementById("response").innerHTML = points[0];
-//   document.getElementById("response").style.fontSize = "18px";
-//   setTimeout(timeup, 5000);
-
-//   function timeup() {
-//     document.getElementById("response").innerHTML = "8";
-//     document.getElementById("response").style.fontSize = "120px";
-//     document.getElementById("clear").value = "";
-//   }
-// }
-// const turnButton = document.getElementById('askme');
-// const ball = document.querySelector('.ball');
-
-// turnButton.addEventListener('click', function() {
-//   ball.classList.toggle('turn');
-// });
-
 function myFunction() {
   points.sort(function (a, b) {
     return 0.5 - Math.random();
   });
   document.getElementById("response").innerHTML = points[0];
-  document.getElementById("response").style.fontSize = "18px";
-  setTimeout(timeup, 5000);
-
-  function timeup() {
-    document.getElementById("response").innerHTML = "8";
-    document.getElementById("response").style.fontSize = "120px";
-    document.getElementById("clear").value = "";
-  }
+  document.getElementById("response").style.fontSize = "20px";
+  // setTimeout(timeup, 5000);
 }
-const turnButton = document.getElementById('askme');
-const ball = document.querySelector('.ball');
 
-turnButton.addEventListener('click', function() {
-  ball.classList.toggle('turn');
-});
+const ball = document.getElementById("ball");
+let frontSide = ball.querySelector(".front-side");
+let backSide = ball.querySelector(".back-side");
+// var number2 = ball.querySelector(".back-side .number");
+
+function animateBall() {
+  // Shake ball
+  ball.classList.add("shake");
+  setTimeout(function () {
+    ball.classList.remove("shake");
+    // front side out <-
+    frontSide.style.transition = "transform 3s, opacity 1.5s";
+    frontSide.style.transform = "translate(-100%, -100%)";
+    frontSide.style.opacity = 0;
+
+    // back side in with answer
+    setTimeout(function () {
+      backSide.style.transform = "translate(0%, 0%)";
+      backSide.style.opacity = 1;
+      // number2.style.transform = "translate(-50%, -50%)";
+      myFunction();
+    }, 2000);
+  }, 1000);
+}
+
+function resetBall() {
+  // Reset back side (random answer)
+  backSide.style.opacity = 0;
+
+  // Show front side (number 8)
+  setTimeout(function () {
+    frontSide.style.transform = "translate(0,0)";
+    frontSide.style.opacity = 1;
+  }, 1000);
+}
+
+setTimeout(resetBall, 500);
+// Button click event listener for turning the ball
+// turnButton.addEventListener("click", animateBall);
+
+// Button click event listener for resetting the ball
+// var resetButton = document.getElementById("resetButton");
+// resetButton.addEventListener("click", resetBall);
+
+// Timeout for automatic reset after 10 seconds
